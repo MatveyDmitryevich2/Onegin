@@ -7,7 +7,6 @@
 #include "Chitaetrazmerfaila_file.h"
 #include "Schitaetkolichestvostrok_file.h"
 #include "Delaetmassivukazateleynabufer_file.h"
-#include "Delaetbykvimalenkimi_file.h"
 #include "Sortirovka_file.h"
 #include "Vivodkonca_file.h"
 #include "Ochistitelhuiti_file.h"
@@ -26,15 +25,18 @@ int main(void)
     char* buffer = (char *)calloc(razmer_bukv + 1, sizeof(char));
 
     size_t readed = fread(buffer, sizeof(char), razmer_bukv, nachalniy);
-    size_t kolichestvo_strok = Schitaet_kolichestvo_strok(nachalniy, razmer_bukv, buffer);
-    
-    char** massiv_ukazatelelei_na_stroki = (char **)calloc(kolichestvo_strok + 1, sizeof(char *));
+    size_t kolichestvo_strok = Schitaet_kolichestvo_strok(razmer_bukv, buffer);
+
+    size_t* razmer_strok = (size_t*)calloc(kolichestvo_strok + 1, sizeof(size_t));
+    Schitaet_razmer_strok(razmer_strok, razmer_bukv, buffer);
+
+    char** massiv_ukazatelelei_na_stroki = (char **)calloc(kolichestvo_strok + 1, sizeof(char *)); //какого хуя здесь +1
 
     Delaet_massiv_ukazateley_na_bufer(massiv_ukazatelelei_na_stroki, razmer_bukv, buffer);
 
-    Delaet_bykvi_malenkimi(massiv_ukazatelelei_na_stroki, kolichestvo_strok);
+    //Delaet_bykvi_malenkimi(massiv_ukazatelelei_na_stroki, kolichestvo_strok);
 
-    Sortirovka(massiv_ukazatelelei_na_stroki, kolichestvo_strok);
+    Sortirovka(razmer_strok, massiv_ukazatelelei_na_stroki, kolichestvo_strok);
 
     FILE *szhatiy = fopen("EvgeniyPEREMENA.txt", "w");
     if (szhatiy == nullptr)
@@ -45,7 +47,7 @@ int main(void)
 
     Vivod_konca(massiv_ukazatelelei_na_stroki, kolichestvo_strok, szhatiy);
 
-    Ochistitel_huiti(massiv_ukazatelelei_na_stroki, buffer, kolichestvo_strok, nachalniy, szhatiy);
+    Ochistitel_huiti(razmer_strok, massiv_ukazatelelei_na_stroki, buffer, kolichestvo_strok, nachalniy, szhatiy);
     
     return 0;
 }

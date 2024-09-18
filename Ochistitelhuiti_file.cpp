@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <assert.h>
 
-void Ochistitel_huiti(char** massiv_ukazatelelei_na_stroki,  char* buffer, size_t kolichestvo_strok, 
+void Ochistitel_huiti(size_t* razmer_strok, char** massiv_ukazatelelei_na_stroki,  char* buffer, size_t kolichestvo_strok, 
                                               FILE* nachalniy, FILE* szhatiy)
 {
     assert(massiv_ukazatelelei_na_stroki != NULL);
@@ -18,6 +18,9 @@ void Ochistitel_huiti(char** massiv_ukazatelelei_na_stroki,  char* buffer, size_
 
     free(buffer);
     buffer = NULL;
+
+    free(razmer_strok);
+    razmer_strok = NULL;
 
     fclose(nachalniy);
     fclose(szhatiy);

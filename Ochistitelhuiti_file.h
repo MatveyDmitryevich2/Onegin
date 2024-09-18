@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Ochistitel_huiti(char** massiv_ukazatelelei_na_stroki,  char* buffer, size_t kolichestvo_strok, 
+void Ochistitel_huiti(size_t* razmer_strok, char** massiv_ukazatelelei_na_stroki,  char* buffer, size_t kolichestvo_strok, 
                       FILE* nachalniy, FILE* szhatiy);
 
 #endif
