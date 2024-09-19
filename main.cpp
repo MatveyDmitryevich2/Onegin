@@ -24,7 +24,7 @@ int main(void)
     size_t razmer_bukv = Chitaet_razmer_faila(nachalniy);
     char* buffer = (char *)calloc(razmer_bukv + 1, sizeof(char));
 
-    size_t readed = fread(buffer, sizeof(char), razmer_bukv, nachalniy);
+    fread(buffer, sizeof(char), razmer_bukv, nachalniy);
     size_t kolichestvo_strok = Schitaet_kolichestvo_strok(razmer_bukv, buffer);
 
     size_t* razmer_strok = (size_t*)calloc(kolichestvo_strok + 1, sizeof(size_t));

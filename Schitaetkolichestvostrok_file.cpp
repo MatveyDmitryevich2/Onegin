@@ -15,6 +15,7 @@ size_t Schitaet_kolichestvo_strok(size_t razmer_bukv, char* buffer)
     for (size_t i = 0; i < razmer_bukv; i++)
     {
         char ch = buffer[i];
+        //fprintf(stderr, "%c", ch);
         if (ch == '\n')
         {
             kolichestvo_strok++;
