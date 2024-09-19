@@ -6,15 +6,12 @@
 
 #include "Chitaetrazmerfaila_file.h"
 #include "Schitaetkolichestvostrok_file.h"
-#include "Delaetmassivukazateleynabufer_file.h"
 #include "Sortirovka_file.h"
-#include "Vivodkonca_file.h"
-#include "Ochistitelhuiti_file.h"
 // typedef int *(Sravnivanie_t)(void* a, void* b);
 
 int main(void)
 {
-    FILE *nachalniy = fopen("Evgeniy.txt", "r");
+    FILE* nachalniy = fopen("Evgeniy.txt", "r");
     if (nachalniy == nullptr)
     {
         fprintf(stderr, "Файл не открылся, иди читай книгу");
@@ -22,7 +19,7 @@ int main(void)
     }
 
     size_t razmer_bukv = Chitaet_razmer_faila(nachalniy);
-    char* buffer = (char *)calloc(razmer_bukv + 1, sizeof(char));
+    char* buffer = (char*)calloc(razmer_bukv + 1, sizeof(char));
 
     fread(buffer, sizeof(char), razmer_bukv, nachalniy);
     size_t kolichestvo_strok = Schitaet_kolichestvo_strok(razmer_bukv, buffer);
@@ -30,15 +27,12 @@ int main(void)
     size_t* razmer_strok = (size_t*)calloc(kolichestvo_strok + 1, sizeof(size_t));
     Schitaet_razmer_strok(razmer_strok, razmer_bukv, buffer);
 
-    char** massiv_ukazatelelei_na_stroki = (char **)calloc(kolichestvo_strok + 1, sizeof(char *)); //какого хуя здесь +1
-
+    char** massiv_ukazatelelei_na_stroki = (char**)calloc(kolichestvo_strok + 1, sizeof(char*));
     Delaet_massiv_ukazateley_na_bufer(massiv_ukazatelelei_na_stroki, razmer_bukv, buffer);
-
-    //Delaet_bykvi_malenkimi(massiv_ukazatelelei_na_stroki, kolichestvo_strok);
 
     Sortirovka(razmer_strok, massiv_ukazatelelei_na_stroki, kolichestvo_strok);
 
-    FILE *szhatiy = fopen("EvgeniyPEREMENA.txt", "w");
+    FILE* szhatiy = fopen("EvgeniyPEREMENA.txt", "w");
     if (szhatiy == nullptr)
     {
         fprintf(stderr, "Файл не открылся, иди читай книгу");

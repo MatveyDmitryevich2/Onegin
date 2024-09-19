@@ -47,3 +47,56 @@ void Schitaet_razmer_strok(size_t* razmer_strok, size_t razmer_bukv, char* buffe
         }
     }
 }
+
+void Delaet_massiv_ukazateley_na_bufer(char** massiv_ukazatelelei_na_stroki, size_t razmer_bukv, char* buffer)
+{
+    assert(massiv_ukazatelelei_na_stroki != NULL);
+    assert(buffer != NULL);
+
+    size_t ineracia_kolichestvo_strok = 1;
+
+    massiv_ukazatelelei_na_stroki[0] = buffer;
+    for (size_t i = 0; i < razmer_bukv; i++)
+    {
+        char ch = buffer[i];
+        if (ch == '\n')
+        {
+            massiv_ukazatelelei_na_stroki[ineracia_kolichestvo_strok] = &buffer[i + 1];
+
+            ineracia_kolichestvo_strok++;
+            buffer[i] = '\0';
+        }
+    }
+}
+
+void Vivod_konca(char** massiv_ukazatelelei_na_stroki, size_t kolichestvo_strok, FILE *szhatiy)
+{
+    assert(massiv_ukazatelelei_na_stroki != NULL);
+    assert(szhatiy != NULL);
+
+    for (size_t i = 0; i < kolichestvo_strok; i++)
+    {
+        fputs(massiv_ukazatelelei_na_stroki[i], szhatiy);
+        fputs("\n", szhatiy);
+    }
+}
+
+void Ochistitel_huiti(size_t* razmer_strok, char** massiv_ukazatelelei_na_stroki,  char* buffer, size_t kolichestvo_strok, 
+                                              FILE* nachalniy, FILE* szhatiy)
+{
+    assert(massiv_ukazatelelei_na_stroki != NULL);
+    assert(nachalniy != NULL);
+    assert(szhatiy != NULL);
+
+    free(massiv_ukazatelelei_na_stroki);
+    massiv_ukazatelelei_na_stroki = NULL;
+
+    free(buffer);
+    buffer = NULL;
+
+    free(razmer_strok);
+    razmer_strok = NULL;
+
+    fclose(nachalniy);
+    fclose(szhatiy);
+}
