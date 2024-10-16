@@ -9,6 +9,7 @@
 #include "Sortirovka_file.h"
 // typedef int *(Sravnivanie_t)(void* a, void* b);
 
+
 int main(void)
 {
     FILE* nachalniy = fopen("Evgeniy.txt", "r");
@@ -24,13 +25,13 @@ int main(void)
     fread(buffer, sizeof(char), razmer_bukv, nachalniy);
     size_t kolichestvo_strok = Schitaet_kolichestvo_strok(razmer_bukv, buffer);
 
-    size_t* razmer_strok = (size_t*)calloc(kolichestvo_strok + 1, sizeof(size_t));
-    Schitaet_razmer_strok(razmer_strok, razmer_bukv, buffer);
+    struct Struka_info* Informacia_O_Stroke = (struct Struka_info*)calloc(kolichestvo_strok + 1, sizeof(Struka_info));
 
-    char** massiv_ukazatelelei_na_stroki = (char**)calloc(kolichestvo_strok + 1, sizeof(char*));
-    Delaet_massiv_ukazateley_na_bufer(massiv_ukazatelelei_na_stroki, razmer_bukv, buffer);
+    Schitaet_razmer_strok(Informacia_O_Stroke, razmer_bukv, buffer); //YES
 
-    Sortirovka(razmer_strok, massiv_ukazatelelei_na_stroki, kolichestvo_strok);
+    Delaet_massiv_ukazateley_na_bufer(Informacia_O_Stroke, razmer_bukv, buffer); //YES
+
+    Sortirovka(Informacia_O_Stroke, kolichestvo_strok);
 
     FILE* szhatiy = fopen("EvgeniyPEREMENA.txt", "w");
     if (szhatiy == nullptr)
@@ -39,10 +40,10 @@ int main(void)
         return EXIT_FAILURE;
     }
 
-    Vivod_konca(massiv_ukazatelelei_na_stroki, kolichestvo_strok, szhatiy);
+    Vivod_konca(Informacia_O_Stroke, kolichestvo_strok, szhatiy); //YES
 
-    Ochistitel_huiti(razmer_strok, massiv_ukazatelelei_na_stroki, buffer, kolichestvo_strok, nachalniy, szhatiy);
-    
+    Ochistitel_huiti(Informacia_O_Stroke, buffer, kolichestvo_strok, nachalniy, szhatiy);    
+
     return 0;
 }
 
